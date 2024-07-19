@@ -36,7 +36,7 @@
 <script src="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js
 "></script>
-<script>
+<!-- <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -70,7 +70,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js
                 });
             }
         });
-    </script>
+    </script> -->
 <script>
     const hamBurger = document.querySelector(".toggle-btn");
 

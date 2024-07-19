@@ -1,7 +1,6 @@
 <?php require base_path('views/partials/head.php') ?>
 
-<section class="vh-100 bg-image"
-  style="height:100vh;">
+<section class="vh-100 bg-image" style="height:100vh;">
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -10,15 +9,15 @@
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-              <form method="POST" action="/register" id="loginForm">
+              <form method="POST" action="/register">
 
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="email" name="email" id="email" autocomplete="email" class="form-control form-control-lg" placeholder="Email address" required/>
+                  <input type="email" name="email" id="email" autocomplete="email" class="form-control form-control-lg" placeholder="Email address" required />
                   <label class="form-label" for="email">Your Email</label>
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="password" name="password" id="password" class="form-control form-control-lg" autocomplete="current-password" required/>
+                  <input type="password" name="password" id="password" class="form-control form-control-lg" autocomplete="current-password" required />
                   <label class="form-label" for="password" require>Password</label>
                 </div>
 
@@ -28,12 +27,10 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                  <button  type="submit" data-mdb-button-init
-                    data-mdb-ripple-init class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                  <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                 </div>
 
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login"
-                    class="fw-bold text-body"><u>Login here</u></a></p>
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
 
               </form>
 
@@ -46,3 +43,13 @@
 </section>
 
 <?php require base_path('views/partials/footer.php') ?>
+
+<script>
+  <?php if (isset($errors['confirm_password'])) : ?>
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "<?= $errors['confirm_password'] ?>",
+  });
+  <?php endif; ?>
+</script>

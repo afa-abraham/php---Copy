@@ -36,6 +36,15 @@
 <script src="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js
 "></script>
+<script>
+  <?php if (isset($errors['status'])) : ?>
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "<?= $errors['status'] ?>",
+  });
+  <?php endif; ?>
+</script>
 <!-- <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();

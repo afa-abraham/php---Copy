@@ -9,28 +9,28 @@ $db = App::resolve(Database::class);
 
 $email = $_POST['email'];
 $password = $_POST['password'];
-$confirm_password = $_POST['confirm_password'];
-
+$confirm_password = $_POST['cpassword'];
 
 
 $errors = [];
 if (!Validator::email($email)) {
-   $errors['email'] = 'Please provide a valid email address.';
+   $errors['status'] = 'Please provide a valid email address.';
 }
 
 
 if (!Validator::string($password, 7, 255)) {
-    $errors['password'] = 'Please provide a password of at least seven characters.';
+    $errors['status'] = 'Please provide a password of at least seven characters.';
 }
+
+if(!Validator::confirmPassword($password, $confirm_password)) {
+    $errors['status'] = "Password doesn't match.";
+}
+
 
 if (! empty($errors)) {
     return view('registration/create.view.php', [
         'errors' => $errors
     ]);
-}
-
-if(!Validator::passwordMatch($password, $confirm_password)) {
-    $errors['confirm_password'] = "Password doesn't match.";
 }
 
 
@@ -49,11 +49,8 @@ if ($user) {
         'password' => password_hash($password, PASSWORD_BCRYPT)
     ]);
 
-    if ($password === $confirm_password) {
-
     (new Authenticator)->login(['email' => $email]);
-
     header('location: /');
     exit();
-    }
+    
 }

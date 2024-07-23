@@ -3,25 +3,34 @@
 namespace Core;
 
 class Authenticator
+
 {
+
+
     public function attempt($email, $password)
     {
         $user = App::resolve(Database::class)
             ->query('select * from users where email = :email', [
-            'email' => $email
+            'email' => $email,
         ])->find();
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $this->login([
-                    'email' => $email
+                    'email' => $email,
                 ]);
 
-                return true;
+                return [
+                    'authenticated' => true,
+                    'role_id' => $user['role_id']
+                ];
             }
         }
 
-        return false;
+        return [
+            'authenticated' => false,
+            'role_id' => null
+        ];
     }
 
     public function login($user)
@@ -31,6 +40,7 @@ class Authenticator
         ];
 
         session_regenerate_id(true);
+
     }
 
     public function logout()
@@ -38,3 +48,4 @@ class Authenticator
         Session::destroy();
     }
 }
+

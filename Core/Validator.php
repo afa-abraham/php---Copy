@@ -16,7 +16,7 @@ class Validator
         return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
-    public static function passwordMatch($password, $confirm_password)
+    public static function confirmPassword($password, $confirm_password)
     {
         return $password === $confirm_password;
     }

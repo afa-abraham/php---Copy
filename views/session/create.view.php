@@ -17,15 +17,6 @@
                 <input type="password" name="password" class="form-control" id="password" autocomplete="current-password" placeholder="Password">
                 <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
             </div>
-            <ul>
-            <?php if (isset($errors['email'])) : ?>
-                        <li class="text-danger text-xs mt-2"><?= $errors['email'] ?></li>
-                    <?php endif; ?>
-
-                    <?php if (isset($errors['password'])) : ?>
-                        <li class="text-danger text-xs mt-2"><?= $errors['password'] ?></li>
-                    <?php endif; ?>
-            </ul>
 
             <div class="form-check text-start my-3">
                 <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">

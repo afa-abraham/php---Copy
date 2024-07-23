@@ -3,20 +3,11 @@
 <?php require('partials/sidebar.php') ?>
 <?php require('partials/nav.php') ?>
 
-<?php  foreach ($users as $user) {
-        if ($user['email'] === $_SESSION['user']['email']) {
-            $roleId = $user['role_id'];
-            break;
-        }
-    } 
-dd($roleId);
-?>
 
 <main>
-    
-    
+
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            <h1>Dashboard</h1>
+            <h1>User Dashboard</h1>
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-wrap">
@@ -149,8 +140,6 @@ dd($roleId);
             </div>
     </div>
 </main>
-
-
 
 
 <?php require('partials/footer.php') ?>

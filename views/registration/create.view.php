@@ -22,8 +22,8 @@
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-lg" />
-                  <label class="form-label" for="confirm_password" require>Repeat your password</label>
+                  <input type="password" id="cpassword" name="cpassword" class="form-control form-control-lg" />
+                  <label class="form-label" for="cpassword" require>Repeat your password</label>
                 </div>
 
                 <div class="d-flex justify-content-center">
@@ -44,12 +44,3 @@
 
 <?php require base_path('views/partials/footer.php') ?>
 
-<script>
-  <?php if (isset($errors['confirm_password'])) : ?>
-  Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: "<?= $errors['confirm_password'] ?>",
-  });
-  <?php endif; ?>
-</script>

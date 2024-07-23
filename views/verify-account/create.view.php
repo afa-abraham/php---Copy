@@ -1,6 +1,15 @@
 <?php require base_path('views/partials/head.php') ?>
 <?php require base_path('views/partials/sidebar.php') ?>
 <?php require base_path('views/partials/nav.php') ?>
+
+<style>
+    .new-account-form .inline-form label {
+       top: -7px;
+       left: 5px;
+    }
+
+</style>
+
 <!-- MAIN CONTENT AREA -->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2 mx-5">Verify Information</h1>
@@ -8,36 +17,36 @@
 </div>
 
 <div class="new-account-form">
-    <form action="" method="" class="my-4 p-4 shadow rounded bg-white inline-form" enctype="multipart/form-data">
+    <form action="/verify-account" method="POST" class="my-4 p-4 shadow rounded bg-white inline-form" enctype="multipart/form-data">
         <fieldset class="mx-lg-5 my-lg-3 inline-form">
             <div class="row">
                 <div class=" col-lg-4 col-sm-6 form-floating mb-3">
-                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" autocomplete="off">
-                    <label for="last_name" >&nbsp;Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" value="<?= $user['last_name'] ?>" autocomplete="off" required>
+                    <label for="last_name" >&nbsp; Last Name</label>
                 </div>
                 <div class=" col-lg-4 col-sm-6 form-floating mb-3">
-                    <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Middle Name" autocomplete="off">
-                    <label for="middle_name" > Middle Name</label>
+                    <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Middle Name" value="<?= $user['middle_name'] ?>" autocomplete="off" required>
+                    <label for="middle_name" >&nbsp; Middle Name</label>
                 </div>
                 <div class=" col-lg-4 col-sm-6 form-floating mb-3">
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" autocomplete="off">
-                    <label for="first_name" > First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" value="<?= $user['first_name'] ?>" autocomplete="off" required>
+                    <label for="first_name" >&nbsp; First Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class=" col-lg-4 col-sm-6 col-6 form-floating mb-3">
-                    <input type="text" class="form-control" id="age" name="age" placeholder="Age" autocomplete="off">
-                    <label for="age"> Age</label>
+                    <input type="text" class="form-control" id="age" name="age" placeholder="Age" value="<?= $user['age'] ?>" autocomplete="off" required>
+                    <label for="age">&nbsp; Age</label>
                 </div>
                 <div class=" col-lg-4 col-sm-6 col-6 form-floating mb-3">
-                    <input type="text" class="form-control py-3" id="birthdate" name="birthdate" placeholder="Birthdate" autocomplete="off">
-                    <!-- <label for="floatingBirthday">Birthday</label> -->
+                    <input type="date" class="form-control py-3" id="birthdate" name="birthdate" value="<?= $user['birthdate'] ?>" placeholder="" autocomplete="off" required>
+                    <label for="age" >&nbsp; Birthdate</label>
                 </div>
                 <div class=" col-lg-4 col-sm-6 form-floating mb-3">
                     <!-- <input type="text" class="form-control" id="floatingMaritalStatus" name="marital_status" placeholder="Marital Status" autocomplete="off">
                                     <label for="floatingMaritalStatus">Marital Status</label> -->
-                    <select class="form-select" name="marital_status" id="marital_status">
-                        <option selected disabled>Marital Status</option>
+                    <select class="form-select" name="marital_status" id="marital_status" value="">
+                        <option selected disabled>&nbsp; <?= isset($user['marital_status']) ? $user['marital_status'] : "Marital Status" ?></option>
                         <option value="1">Single</option>
                         <option value="2">Married</option>
                         <option value="3">Widowed</option>
@@ -47,12 +56,12 @@
             </div>
             <div class="row">
                 <div class=" col-12 col-lg-6 col-sm-12 form-floating mb-3">
-                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="0000 000 0000" autocomplete="off">
-                    <label for="mobile">Mobile no.</label>
+                    <input type="text" class="form-control" id="mobile" name="mobile"  placeholder="0000 000 0000" autocomplete="off" required value="<?= $user['mobile'] ?>">
+                    <label for="mobile">&nbsp; Mobile</label>
                 </div>
                 <div class=" col-12 col-lg-6 col-sm-12 form-floating mb-3">
-                    <input type="text" class="form-control" id="fb_link" name="fb_link" placeholder="Facebook Profile Link" autocomplete="off">
-                    <label for="fb_link">Facebook Profile Link</label>
+                    <input type="text" class="form-control" id="fb_link" name="fb_link" placeholder="Facebook Profile Link" value="<?= $user['fb_link'] ?>" autocomplete="off" required>
+                    <label for="fb_link">&nbsp; Facebook Profile Link</label>
                 </div>
             </div>
             <div class="row">
@@ -84,7 +93,7 @@
                                     <li class="list-group-item bg-transparent border-0 p-1 mb-2"><small><strong>4. </strong> Please upload photos as JPG or PNG files only and less than 5 megabytes in size.</small></li>
                                 </ol>
                             </div>
-                            <button class="download">Upload</button>
+                            <button class="download" >Upload</button>
                         </div>
                     </div>
                 </div>
@@ -101,14 +110,14 @@
                             <span class="support">Supports: MP4, AVI, WEBM</span>
                         </div>
                         <div>
-                            <button class="download">Upload</button>
+                            <button class="download"  >Upload</button>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- <div class="row">
                 <div class="col"> -->
-                    <button class="verify btn btn-lg btn-primary w-100 mt-3" type="" name="">Proceed &nbsp; >></button>
+                    <button class="verify btn btn-lg btn-primary w-100 mt-3" type="submit" name="">Proceed &nbsp; >></button>
                 <!-- </div>
             </div> -->
         </fieldset>
@@ -179,15 +188,13 @@
         }
     }
 
-    $('#birthdate').datepicker({
-        uiLibrary: 'bootstrap5'
-    });
+
 
            
        
 </script>
 
-<script>
+<!-- <script>
      document.querySelector('.verify.btn').addEventListener('click', function(event) {
         event.preventDefault();
                 Swal.fire({
@@ -200,5 +207,5 @@
                     confirmButtonText: 'OK'
                 })
             });
-</script>
+</script> -->
 

@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 $errors = [];
 
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_GET['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $receiver_email = $_POST['receiver_email'];

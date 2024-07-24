@@ -1,15 +1,32 @@
+<?php
+
+use Core\App;
+use Core\Database;
+
+$db = App::resolve(Database::class);
+
+$users = $db->query('select * from users')->get(); ?>
+
+<?php foreach ($users as $user) {
+    if ($user['email'] === $_SESSION['user']['email']) {
+        $roleId = $user['role_id'];
+        break;
+    }
+}
+?>
+
 <div class="main">
-    
+
     <nav class="navbar navbar-expand px-4 py-3 flex-row" style="background: #0e2238;">
         <?php if ($_SESSION['user'] ?? false) : 'Guest' ?>
 
-        <div class="d-flex">
-        <a class="text-white">Hello,  <?= $_SESSION['user']['email'] ?></a>
-        </div>
-        <div class="d-flex ms-auto justify-content-end">
-            
-                
-                <a href="/" class="text-white">&nbsp;<i class="fa-solid fa-house"></i>&nbsp;Home</a>
+            <div class="d-flex">
+                <a class="text-white">Hello, <?= $_SESSION['user']['email'] ?></a>
+            </div>
+            <div class="d-flex ms-auto justify-content-end">
+
+
+                <a href="<?= ($roleId == 1) ? '/admin' : '/' ?>" class="text-white">&nbsp;<i class="fa-solid fa-house"></i>&nbsp;<?= ($roleId == 1) ? 'Admin' : 'Home' ?></a>
                 <a href="/verify-account" class="px-5">
                     <i></i>
                     <span class="text-white"><i class="fa-solid fa-user"></i>&nbsp;My Account</span>
@@ -28,7 +45,7 @@
                     In</a>
 
             <?php endif ?>
-        </div>
+            </div>
 
 
     </nav>

@@ -1,21 +1,31 @@
 <?php require('partials/head.php') ?>
 <?php if ($_SESSION['user'] ?? false) : ?>
-<?php require('partials/sidebar.php') ?>
-<?php require('partials/nav.php') ?>
 
-<?php  foreach ($users as $user) {
-        if ($user['email'] === $_SESSION['user']['email']) {
-            $roleId = $user['role_id'];
-            break;
-        }
-    } 
-dd($roleId);
-?>
+    <?php require('partials/sidebar.php') ?>
+    <?php require('partials/nav.php') ?>
 
-<main>
-    
-    
-    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+
+    <?php if ($roleId != 3) {
+        echo "
+        <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Access Denied',
+            text: 'You have no access to this page.'
+        }).then(function() {
+            window.location = '/admin'; // Redirect to homepage or another page
+        });
+      </script>";
+
+
+        exit;
+    } ?>
+
+
+    <main>
+
+
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
             <h1>Dashboard</h1>
             <div class="row">
                 <div class="col-md-12">
@@ -43,7 +53,7 @@ dd($roleId);
                                         <div class="img" style="background-image: url(images/person_1.jpg);"></div>
                                         <div class="pl-3 email">
                                             <span>markotto@email.com</span>
-    
+
                                         </div>
                                     </td>
                                     <td>Markotto89</td>
@@ -147,13 +157,12 @@ dd($roleId);
                     </div>
                 </div>
             </div>
-    </div>
-</main>
+        </div>
+    </main>
 
 
 
 
-<?php require('partials/footer.php') ?>
-<?php else : require base_path('views/session/create.view.php') ?>
-      
+    <?php require('partials/footer.php') ?>
+
 <?php endif ?>

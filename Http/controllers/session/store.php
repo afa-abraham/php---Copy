@@ -36,9 +36,9 @@ if (!$signedIn) {
 }
 
 
-if ($roleId === 1) {
+if ($roleId == 1) {
     redirect('/admin');
-} elseif ($roleId === 2) {
+} elseif ($roleId == 2) {
     redirect('/verified-user');
 } else {
     redirect('/');

@@ -1,24 +1,19 @@
 <?php
 
 use Core\App;
-use Core\Validator;
 use Core\Database;
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "myapp";
+$db = App::resolve(Database::class);
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$users = $db->query('select * from users')->get();
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+foreach ($users as $user) {
+    if ($user['email'] === $_SESSION['user']['email']) {
+        $user_id = $user['id'];
+    }  
 }
 
 $errors = [];
-$user_id = $_SESSION['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $receiver_email = $_POST['receiver_email'];
@@ -34,15 +29,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO mails (sender_id, receiver_id, subject, body) VALUES (?, ?, ?, ?)";
         $params = [$user_id, $receiver_id, $subject, $body];
         $db->query($sql, $params);
+        echo "
+        <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Message Sent',
+            text: 'You have successfull sent a message.'
+        }).then(function() {
+            window.history.back(); // Go back to the previous page
+        });
+      </script>";
+
     } else {
         echo "Error: User with email " . htmlspecialchars($receiver_email) . " not found.";
     }
 }
 
-
-if (!Validator::string($_POST['body'], 1, 1000)) {
-    $errors['body'] = 'A body of no more than 1,000 characters is required.';
-}
 
 if (!empty($errors)) {
     return view("mails/create.view.php", [

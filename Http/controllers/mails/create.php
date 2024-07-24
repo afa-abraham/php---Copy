@@ -1,24 +1,20 @@
 <?php
 
+use Core\App;
+use Core\Database;
 
+$db = App::resolve(Database::class);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "myapp";
+$users = $db->query('select * from users')->get();
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+foreach ($users as $user) {
+    if ($user['email'] === $_SESSION['user']['email']) {
+        $user_id = $user['id'];
+    }  
 }
 
 $errors = [];
 
-
-$user_id = $_GET['user_id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $receiver_email = $_POST['receiver_email'];
@@ -26,14 +22,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body = $_POST['body'];
 
     // Lookup receiver_id based on email
-    $sql = "SELECT id FROM users WHERE email = ?";
-    $result = $db->query($sql, [$receiver_email])->statement->fetch();
+    $result = $db ->query("SELECT id FROM users WHERE email = :email" ,[
+        'email' => $receiver_email
+    ])->findOrFail();
+    
+
+    dd($result);
+ 
+    
 
     if ($result) {
         $receiver_id = $result['id'];
-        $sql = "INSERT INTO mails (sender_id, receiver_id, subject, body) VALUES (?, ?, ?, ?)";
-        $params = [$user_id, $receiver_id, $subject, $body];
-        $db->query($sql, $params);
+        $db ->query ("INSERT INTO mails where sender_id = :sender_id, receiver_id = :receiver_id, subject = :subject, body = :body ",[
+            'sender_id' => $user_id,
+            'receiver_id' => $receiver_id ,
+            'subject' => $subject,
+            'body' => $body
+        ]);
+
+        echo "
+        <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Message Sent',
+            text: 'You have successfull sent a message.'
+        }).then(function() {
+            window.history.back(); // Go back to the previous page
+        });
+      </script>";
+        
     } else {
         echo "Error: User with email " . htmlspecialchars($receiver_email) . " not found.";
     }

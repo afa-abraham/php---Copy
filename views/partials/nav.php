@@ -26,7 +26,7 @@ $users = $db->query('select * from users')->get(); ?>
             <div class="d-flex ms-auto justify-content-end">
 
 
-                <a href="<?= ($roleId == 1) ? '/admin' : '/' ?>" class="text-white">&nbsp;<i class="fa-solid fa-house"></i>&nbsp;<?= ($roleId == 1) ? 'Admin' : 'Home' ?></a>
+                <a href="<?= ($roleId == 1) ? '/admin' : '/verified-user' ?>" class="text-white">&nbsp;<i class="fa-solid fa-house"></i>&nbsp;Dashboard</a>
                 <a href="/verify-account" class="px-5">
                     <i></i>
                     <span class="text-white"><i class="fa-solid fa-user"></i>&nbsp;My Account</span>

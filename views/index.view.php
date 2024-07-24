@@ -13,7 +13,7 @@
             title: 'Access Denied',
             text: 'You have no access to this page.'
         }).then(function() {
-            window.location = '/admin'; // Redirect to homepage or another page
+            window.history.back(); // Go back to the previous page
         });
       </script>";
 

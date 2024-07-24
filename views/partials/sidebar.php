@@ -1,3 +1,20 @@
+<?php 
+
+use Core\App;
+use Core\Database;
+
+$db = App::resolve(Database::class);
+
+$users = $db->query('select * from users')->get(); ?>
+
+<?php foreach ($users as $user) {
+    if ($user['email'] === $_SESSION['user']['email']) {
+        $roleId = $user['role_id'];
+        break;
+    }
+}
+?>
+
 <div class="wrapper">
 <?php if ($_SESSION['user'] ?? false) : ?>
     <aside id="sidebar">
@@ -9,147 +26,102 @@
                     <a href="#">MatchMakeMe</a>
                 </div>
             </div>
-<!--             
-            <ul class="sidebar-nav">
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Ladies Profile</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Task</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="lni lni-protection"></i>
-                        <span>Auth</span>
-                    </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Login</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Register</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class="lni lni-layout"></i>
-                        <span>Multi Level</span>
-                    </a>
-                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                Two Links
-                            </a>
-                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 1</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-popup"></i>
-                        <span>Messaging</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-cog"></i>
-                        <span>Setting</span>
-                    </a>
-                </li>
-            </ul> -->
+            <?php echo $roleId == 1 ? '
+<ul class="sidebar-nav">
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link">
+            <i class="lni lni-user"></i>
+            <span>View Women</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link">
+            <i class="lni lni-user"></i>
+            <span>Women Accounts List</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link">
+            <i class="lni lni-agenda"></i>
+            <span>Add Woman Account</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link">
+            <i class="lni lni-agenda"></i>
+            <span>Add Client Details</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+            data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+            <i class="lni lni-protection"></i>
+            <span>My Inbox</span>
+        </a>
+        <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Unread Messages</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Read Messages</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Unanswered Messages</a>
+            </li>
             
-            <ul class="sidebar-nav">
-                <li class="sidebar-item">
-                    <a href="/mails/create" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Compose Mail</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="/mails" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Inbox</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="/mail" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Sent Messages</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="lni lni-protection"></i>
-                        <span>Auth</span>
-                    </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Login</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Register</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class="lni lni-layout"></i>
-                        <span>Multi Level</span>
-                    </a>
-                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                Two Links
-                            </a>
-                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 1</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-popup"></i>
-                        <span>Messaging</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-cog"></i>
-                        <span>Setting</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="sidebar-footer">
-                <form action="/session">
-                    <input type="hidden" name="method" value="DELETE">
-                    <button class="sidebar-link btn btn-link text-white fs-6"><i class="lni lni-exit fs-5"></i>Log Out</button>
-                </form>
-            </div>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Answered Messages</a>
+            </li>
+        </ul>
+    </li>
+   
+</ul>
+' : '
+<ul class="sidebar-nav">
+    <li class="sidebar-item">
+        <a href="/mails/create" class="sidebar-link">
+            <i class="fa-solid fa-pen-nib"></i>
+            <span>Compose</span>
+        </a>
+    </li>
+    <br>
+    
+    <li class="sidebar-item">
+        <a href="/mails/create" class="sidebar-link">
+            <i class="fa-solid fa-inbox"></i>
+            <span>Inbox</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="/mails" class="sidebar-link">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            <span>Read messages</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="/mails" class="sidebar-link">
+            <i class="lni lni-agenda"></i>
+            <span>Unresponded</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="/mails" class="sidebar-link">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Pending</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="/mail" class="sidebar-link">
+            <i class="fa-solid fa-eye-slash"></i>
+            <span>Refused</span>
+        </a>
+    </li>
+
+</ul>
+';
+?>
+         
         </aside>
+        
         <?php endif ?>
+   

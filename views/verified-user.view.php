@@ -1,3 +1,36 @@
+<?php
+require base_path('Http/controllers/chat/config.php');
+
+// SQL query
+$sql = "SELECT * FROM users";
+
+// Execute query
+$result = mysqli_query($conn, $sql);
+
+// Check if query executed successfully
+if ($result) {
+    // Fetch all rows into an associative array
+    $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    // Loop through the fetched users array
+    foreach ($users as $user) {
+        // Check if the user's email matches the email in the session
+        if ($user['email'] === $_SESSION['user']['email']) {
+            $_SESSION['unique_id'] = $user['id'];
+            break; // Exit the loop once the user is found
+        }
+    }
+
+    // Free result set
+    mysqli_free_result($result);
+
+    // Close connection
+    mysqli_close($conn);
+} else {
+    echo "Error executing query: " . mysqli_error($conn);
+} ?>
+
+
 <?php require('partials/head.php') ?>
 <?php if ($_SESSION['user'] ?? false) : ?>
     <?php require('partials/sidebar.php') ?>
@@ -308,7 +341,7 @@
         }
     </style>
 
-
+    <?php $user_id = $_SESSION['unique_id']; ?>
     <main>
 
         <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
@@ -398,7 +431,7 @@
                 <section class="chat">
                     <div class="header-chat">
                         <i class="icon fa-solid fa-user" aria-hidden="true"></i>
-                        <p class="name">Megan Leib</p>
+                        <p class="name"><?php echo $user['first_name'] . " " . $user['last_name'] ?></p>
 
                     </div>
                     <div class="messages-chat">
@@ -431,11 +464,18 @@
                         </div>
                         <p class="time"> 15h09</p>
                     </div>
-                   
+                    <form action="#" class="footer-chat">
+                        <i class="icon fa-solid fa-smile clickable" style="font-size:25pt;" aria-hidden="true"></i>
+                        <input type="hidden" class="incoming_id" value="<?php echo $user_id ?>"></input>
+                        <input type="text" class="write-message" placeholder="Type your message here"></input>
+                        <a class="button"><i class="icon send fa-solid fa-paper-plane clickable"></i></a>
+                    </form>
+
                 </section>
             </div>
         </div>
     </main>
+    <script src="Http/controllers/chat/chat.js"></script>
 
 
     <?php require('partials/footer.php') ?>

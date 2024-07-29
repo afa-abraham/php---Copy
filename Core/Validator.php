@@ -20,4 +20,9 @@ class Validator
     {
         return $password === $confirm_password;
     }
+
+    public static function wrongPassword($password,$enteredPassword)
+    {
+        return $password === $enteredPassword;
+    }
 }

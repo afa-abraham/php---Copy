@@ -14,8 +14,6 @@ foreach ($users as $user) {
     }
 }
 
-
-
 view('index.view.php', [
     'users' => $users
 ]);

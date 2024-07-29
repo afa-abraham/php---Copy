@@ -39,7 +39,7 @@
                     <label for="age">&nbsp; Age</label>
                 </div>
                 <div class=" col-lg-4 col-sm-6 col-6 form-floating mb-3">
-                    <input type="date" class="form-control py-3" id="birthdate" name="birthdate" value="<?= $user['birthdate'] ?>" placeholder="" autocomplete="off" required>
+                    <input type="date" class="form-control py-3" id="birthdate" name="birthdate"  placeholder="" autocomplete="off" required>
                     <label for="age" >&nbsp; Birthdate</label>
                 </div>
                 <div class=" col-lg-4 col-sm-6 form-floating mb-3">
@@ -56,8 +56,8 @@
             </div>
             <div class="row">
                 <div class=" col-12 col-lg-6 col-sm-12 form-floating mb-3">
-                    <input type="text" class="form-control" id="mobile" name="mobile"  placeholder="0000 000 0000" autocomplete="off" required value="<?= $user['mobile'] ?>">
-                    <label for="mobile">&nbsp; Mobile</label>
+                    <input type="text" class="form-control" id="mobile_number" name="mobile_number"  placeholder="0000 000 0000" autocomplete="off" required value="<?= $user['mobile_number'] ?>">
+                    <label for="mobile_number">&nbsp; Mobile</label>
                 </div>
                 <div class=" col-12 col-lg-6 col-sm-12 form-floating mb-3">
                     <input type="text" class="form-control" id="fb_link" name="fb_link" placeholder="Facebook Profile Link" value="<?= $user['fb_link'] ?>" autocomplete="off" required>
@@ -75,7 +75,7 @@
                             </div>
                             <span class="header">Drag & Drop</span>
                             <span class="header">or <span class="button">browse</span></span>
-                            <input type="file" hidden name="files[]" multiple accept=".jpg, .jpeg, .png, .gif" />
+                            <input type="file" hidden name="img" multiple accept=".jpg, .jpeg, .png, .gif" />
                             <span class="support">Supports: JPEG, JPG, PNG</span>
                         </div>
                         <div>

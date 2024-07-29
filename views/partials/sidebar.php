@@ -26,7 +26,7 @@ $users = $db->query('select * from users')->get(); ?>
                     <a href="#">MatchMakeMe</a>
                 </div>
             </div>
-            <?php echo $roleId == 1 ? '
+            <?= $roleId === 1 ? '
 <ul class="sidebar-nav">
     <li class="sidebar-item">
         <a href="#" class="sidebar-link">
@@ -35,19 +35,19 @@ $users = $db->query('select * from users')->get(); ?>
         </a>
     </li>
     <li class="sidebar-item">
-        <a href="#" class="sidebar-link">
+        <a href="/womens" class="sidebar-link">
             <i class="lni lni-user"></i>
             <span>Women Accounts List</span>
         </a>
     </li>
     <li class="sidebar-item">
-        <a href="#" class="sidebar-link">
+        <a href="/womens/create" class="sidebar-link">
             <i class="lni lni-agenda"></i>
             <span>Add Woman Account</span>
         </a>
     </li>
     <li class="sidebar-item">
-        <a href="#" class="sidebar-link">
+        <a href="/clients" class="sidebar-link">
             <i class="lni lni-agenda"></i>
             <span>Add Client Details</span>
         </a>
@@ -87,7 +87,7 @@ $users = $db->query('select * from users')->get(); ?>
     <br>
     
     <li class="sidebar-item">
-        <a href="/mails/create" class="sidebar-link">
+        <a href="/mails/inbox" class="sidebar-link">
             <i class="fa-solid fa-inbox"></i>
             <span>Inbox</span>
         </a>
@@ -95,7 +95,19 @@ $users = $db->query('select * from users')->get(); ?>
     <li class="sidebar-item">
         <a href="/mails" class="sidebar-link">
             <i class="fa-solid fa-envelope-open-text"></i>
-            <span>Read messages</span>
+            <span>Unread messages</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="/mails/drafts" class="sidebar-link">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            <span>Draft</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="/mails/sent" class="sidebar-link">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            <span>Sent</span>
         </a>
     </li>
     <li class="sidebar-item">

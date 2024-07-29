@@ -1,19 +1,4 @@
-<?php
 
-use Core\App;
-use Core\Database;
-
-$db = App::resolve(Database::class);
-
-$users = $db->query('select * from users')->get(); ?>
-
-<?php foreach ($users as $user) {
-    if ($user['email'] === $_SESSION['user']['email']) {
-        $roleId = $user['role_id'];
-        break;
-    }
-}
-?>
 
 <div class="main">
 

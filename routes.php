@@ -4,16 +4,22 @@ $router->get('/', 'index.php');
 $router->get('/admin', 'admin.php');
 $router->get('/verified-user', 'verified-user.php');
 
-$router->get('/chat', 'chat/insert-chat.php');
-$router->get('/chat2', 'chat/get-chat.php');
+$router->get('/mails/inbox', 'mails/inbox.php');
+$router->get('/mails/create', 'mails/send_mail.php');
+$router->post('/mails/store', 'mails/send_mail.php');
+$router->get('/mails/drafts', 'mails/drafts.php');
+$router->get('/mails/sent', 'mails/sent.php');
+$router->patch('/mail/edit', 'mails/edit_draft.php');
+$router->get('/mails/reply', 'mails/view_message.php');
 
-// $router->get('/mails', 'mails/index.php')->only('auth');
-// $router->get('/mail', 'mails/show.php');
-// $router->delete('/mail', 'mails/destroy.php');
-// $router->get('/mail/edit', 'mails/edit.php');
-// $router->patch('/mail', 'mails/update.php');
-// $router->get('/mails/create', 'mails/create.php');
-// $router->post('/mails', 'mails/store.php');
+$router->get('/womens', 'womens/account.php');
+$router->get('/womens/create', 'womens/create.php');
+$router->post('/womens/store', 'womens/store.php');
+
+$router->get('/clients', 'clients/index.php');
+$router->get('/clients/create', 'clients/create.php');
+$router->post('/clients/store', 'clients/store.php');
+
 
 $router->get('/register', 'registration/create.php')->only('guest');
 $router->post('/register', 'registration/store.php')->only('guest');

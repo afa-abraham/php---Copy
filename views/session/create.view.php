@@ -2,11 +2,11 @@
 <?php require base_path('views/partials/head.php') ?>
 
 
-<div class="d-flex align-items-center py-4 bg-body-tertiary " style="height:100vh; background-image: url('https://media.licdn.com/dms/image/C5612AQFpDFrJBY_Yxg/article-cover_image-shrink_600_2000/0/1520175471206?e=2147483647&v=beta&t=uSBfi73i1_M83R2M2rI6G4QsYFtSoKR9Alfk-HNqiYw');background-size: cover;background-position:center;">
+<div class="d-flex align-items-center py-4 bg-body-tertiary " style="height:100vh;">
     <main class="form-signin w-100 m-auto" style="padding: 1rem; max-width: 350px;">
         <form action="/session" method="POST">
             <img class="mb-4" src="https://a-foreign-affair.com/img/a-foreign-affair-logo.png" alt="" width="280" height="100">
-            <h1 class="h3 mb-3 fw-normal text-white">Log in</h1>
+            <h1 class="h3 mb-3 fw-normal">Log in</h1>
 
 
             <div class="form-floating">

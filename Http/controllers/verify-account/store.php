@@ -7,7 +7,16 @@ use Core\Database;
 
 $db = App::resolve(Database::class);
 
-$db->query('UPDATE users SET first_name = :first_name, middle_name = :middle_name, last_name= :last_name, age = :age, birthdate = :birthdate, marital_status = :marital_status, mobile= :mobile, fb_link=:fb_link,photos=:photos,videos=:videos WHERE email=:email',[
+$users = $db->query('select * from users')->get();
+ foreach ($users as $user) {
+    if ($user['email'] === $_SESSION['user']['email']) {
+        $roleId = $user['role_id'];
+        break;
+    }
+}
+
+
+$db->query('UPDATE users SET first_name = :first_name, middle_name = :middle_name, last_name= :last_name, age = :age, birthdate = :birthdate, marital_status = :marital_status, mobile= :mobile, fb_link=:fb_link,img=:img,videos=:videos WHERE email=:email ',[
     'first_name' => $_POST['first_name'],
     'middle_name' => $_POST['middle_name'],
     'last_name' => $_POST['last_name'],
@@ -16,29 +25,31 @@ $db->query('UPDATE users SET first_name = :first_name, middle_name = :middle_nam
     'marital_status' => $_POST['marital_status'],
     'mobile' => $_POST['mobile'],
     'fb_link' => $_POST['fb_link'],
-    'photos' => $_POST['photos'],
+    'img' => $_POST['img'],
     'videos' => $_POST['videos'],
     'email' => $_SESSION['user']['email']
 ]);
 
+
+
 if(isset($_POST['upload_btn']))
 {
-    $image = $_FILES['photos']['name'];
+    $image = $_FILES['img']['name'];
     $path = "uploads/"; /* Path for Uploading your Image */
     $image_extension = pathinfo($image,PATHINFO_EXTENSION); /* Image Extension */
     $filename = time().'.'.$image_extension; /* Renaming the Image */
 
-    $db->query("INSERT INTO users (photos) VALUES ('$filename')");
+    $db->query("INSERT INTO users (img) VALUES ('$filename')");
 
-    move_uploaded_file($_FILES['photos']['tmp_name'],$path."/".$filename);
+    move_uploaded_file($_FILES['img']['tmp_name'],$path."/".$filename);
 
     $_SESSION['status'] = 'Image User Profile Uploaded Successfully';
-    header('Location: /');
+    header('Location: ' . ($roleId == 3 ? '/' : ($roleId == 2 ? '/verified-user' : '/admin')));
     exit();
 } else 
 {
     $_SESSION['status'] = 'Something went wrong';
-    header('Location:/');
+    header('Location: ' . ($roleId == 3 ? '/' : ($roleId == 2 ? '/verified-user' : '/admin')));
     exit();
 }
 

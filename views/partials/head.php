@@ -25,6 +25,10 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js
             padding: 0;
         }
 
+        .main-wrapper .main .row>* {
+            max-width: 30% !important;
+        }
+
         a {
             text-decoration: none;
         }

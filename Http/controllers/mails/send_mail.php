@@ -62,13 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $mail_id, $sender_id);
     $stmt->execute();
-    $stmt->close();?>
+    $stmt->close();
 
-<link href="
-https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.min.css
-" rel="stylesheet">
  
-<?php
+
     // Only insert into user_mail_status for receiver if it's not a draft
     if (!$is_draft) {
         $sql = "INSERT INTO user_mail_status (mail_id, user_id) VALUES (?, ?)";
@@ -104,3 +101,4 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.min.css
 view('mails/send_mail.view.php',[
 
 ]);
+

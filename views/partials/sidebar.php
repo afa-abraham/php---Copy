@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Core\App;
 use Core\Database;
@@ -16,8 +16,8 @@ $users = $db->query('select * from users')->get(); ?>
 ?>
 
 <div class="wrapper">
-<?php if ($_SESSION['user'] ?? false) : ?>
-    <aside id="sidebar">
+    <?php if ($_SESSION['user'] ?? false) : ?>
+        <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
@@ -94,32 +94,33 @@ $users = $db->query('select * from users')->get(); ?>
     </li>
     <li class="sidebar-item">
         <a href="/mails" class="sidebar-link">
-            <i class="fa-solid fa-envelope-open-text"></i>
+            <i class="fa fa-envelope"></i>
             <span>Unread messages</span>
         </a>
     </li>
     <li class="sidebar-item">
         <a href="/mails/drafts" class="sidebar-link">
-            <i class="fa-solid fa-envelope-open-text"></i>
+            <i class="fab fa-firstdraft"></i>
             <span>Draft</span>
         </a>
     </li>
     <li class="sidebar-item">
         <a href="/mails/sent" class="sidebar-link">
-            <i class="fa-solid fa-envelope-open-text"></i>
+            <i class="fa-solid fa-paper-plane"></i>
             <span>Sent</span>
         </a>
     </li>
+
     <li class="sidebar-item">
         <a href="/mails" class="sidebar-link">
-            <i class="lni lni-agenda"></i>
-            <span>Unresponded</span>
+            <i class="fa fa-archive"></i>
+            <span>Archived Mails</span>
         </a>
     </li>
     <li class="sidebar-item">
         <a href="/mails" class="sidebar-link">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-            <span>Pending</span>
+            <i class="fa fa-trash"></i>
+            <span>Deleted Mails</span>
         </a>
     </li>
     <li class="sidebar-item">
@@ -131,9 +132,8 @@ $users = $db->query('select * from users')->get(); ?>
 
 </ul>
 ';
-?>
-         
+            ?>
+
         </aside>
-        
-        <?php endif ?>
-   
+
+    <?php endif ?>

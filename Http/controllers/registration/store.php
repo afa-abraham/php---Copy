@@ -41,16 +41,14 @@ $user = $db->query('select * from users where email = :email', [
     'email' => $email
 ])->find();
 
-$ran_id = rand(time(), 100000000);
 
 if ($user) {
     header('location: /');
     exit();
 } else {
-    $db->query('INSERT INTO users(email, password, unique_id) VALUES(:email, :password,:unique_id)', [
+    $db->query('INSERT INTO users(email, password) VALUES(:email, :password)', [
         'email' => $email,
         'password' => password_hash($password, PASSWORD_BCRYPT),
-        'unique_id' => $ran_id
     ]);
 
     (new Authenticator)->login(['email' => $email]);

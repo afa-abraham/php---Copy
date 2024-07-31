@@ -53,6 +53,86 @@ $stmt->bind_param("ii", $user_id, $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['message'])) {
+
+     // Get sender_id and user_id from POST request
+     $sender_id = intval($_POST['sender_id']);
+     $user_id = intval($_POST['user_id']);
+ 
+
+// Query to get all messages from the specific sender
+$sql = "SELECT (mails.id) as id , mails.body, mail.created_at, sender.full_name AS sender_name, sender,profile_image AS sender_image FROM mails
+    JOIN users AS sender ON mails.sender_id = sender.id
+    JOIN user_mail_status ON mails.id = user_mail_status.mail_id
+    WHERE mails.sender_id = ? 
+    AND mails.receiver_id = ? 
+    AND user_mail_status.user_id = ? 
+    AND user_mail_status.is_deleted = 0 
+    AND user_mail_status.is_archived = 0
+    ORDER BY mails.created_at ASC";
+
+    // Prepare and execute the statement
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iii", $sender_id, $user_id, $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Fetch all messages
+    $messages = $result->fetch_all(MYSQLI_ASSOC);
+
+    // Check if there are messages and display them
+    if (count($messages) > 0) {
+        foreach ($messages as $message) {
+            echo "<div class='message'>";
+            echo "<p><strong>From:</strong> " . htmlspecialchars($message['sender_name']) . "</p>";
+            echo "<p><strong>Sent:</strong> " . htmlspecialchars($message['created_at']) . "</p>";
+            echo "<p><strong>Message:</strong> " . htmlspecialchars($message['body']) . "</p>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>No messages found from this sender.</p>";
+    }
+} else {
+    echo "<p>Invalid request.</p>";
+}
+
+// Close the database connection
+$conn->close();
+
+
+
+// $sql = "
+//     SELECT mails.id, mails.thread_id, mails.body, mails.created_at, sender.full_name AS sender_name, sender.profile_image AS sender_image
+//     FROM mails
+//     JOIN users AS sender ON mails.sender_id = sender.id
+//     JOIN user_mail_status ON mails.id = user_mail_status.mail_id
+//     WHERE mails.thread_id IN (
+//         SELECT MAX(mails.id) as id
+//         FROM mails
+//         JOIN users AS sender ON mails.sender_id = sender.id
+//         JOIN user_mail_status ON mails.id = user_mail_status.mail_id
+//         WHERE sender.id = ? 
+//         AND mails.receiver_id = ? 
+//         AND user_mail_status.user_id = ? 
+//         AND user_mail_status.is_deleted = 0 
+//         AND user_mail_status.is_archived = 0
+//         GROUP BY mails.thread_id
+//     )
+//     AND mails.receiver_id = ? 
+//     AND user_mail_status.user_id = ? 
+//     AND user_mail_status.is_deleted = 0 
+//     AND user_mail_status.is_archived = 0
+//     ORDER BY mails.created_at DESC
+// ";
+
+// // Prepare and execute the statement
+// $stmt = $conn->prepare($sql);
+// $stmt->bind_param("iiiii", $sender_id, $user_id, $user_id, $user_id, $user_id);
+// $stmt->execute();
+// $result = $stmt->get_result();
+
+// // Fetch all messages
+// $messages = $result->fetch_all(MYSQLI_ASSOC);
 
 
 ?>

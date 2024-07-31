@@ -38,6 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    
+
     $receiver_id = $receiver['id'];
 
     // Insert into mails table

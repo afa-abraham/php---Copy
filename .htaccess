@@ -1,10 +1,5 @@
-<IfModule mod_rewrite.c>
+DirectoryIndex index.php
 
-   RewriteEngine On
-
-   RewriteCond %{REQUEST_FILENAME}  -f [OR]
-   RewriteCond %{REQUEST_FILENAME} !-f
-   RewriteCond %{REQUEST_FILENAME} !-d
-   RewriteRule ^(.*)$ public/index.php [L,QSA]
-
-</IfModule>
+RewriteEngine On 
+RewriteRule ^$ public/index.php [L]
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]

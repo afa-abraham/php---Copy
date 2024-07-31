@@ -22,33 +22,38 @@ if ($result) {
 
     // Free result set
     mysqli_free_result($result);
-
-
-    
 } else {
     echo "Error executing query: " . mysqli_error($conn);
 }
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: /login");
-     exit;
- }
- 
- $user_id = $_SESSION['user_id'];
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
 
 //Inbox Query
-$sql = "SELECT MAX(mails.id) as id, mails.thread_id, mails.subject, mails.created_at, sender.username AS sender_name, sender.profile_image AS sender_image 
+$sql = "SELECT (mails.id) as id, mails.thread_id, mails.body,mails.created_at, sender.full_name AS sender_name, sender.profile_image AS sender_image 
         FROM mails 
         JOIN users AS sender ON mails.sender_id = sender.id 
         JOIN user_mail_status ON mails.id = user_mail_status.mail_id 
         WHERE mails.receiver_id = ? AND user_mail_status.user_id = ? 
         AND user_mail_status.is_deleted = 0 AND user_mail_status.is_archived = 0 
-        GROUP BY mails.thread_id 
-        ORDER BY MAX(mails.created_at) DESC";
+        AND mails.created_at = (
+                SELECT MAX(m.created_at)
+                FROM mails m
+                WHERE m.thread_id = mails.thread_id
+            )
+        ORDER BY 
+            mails.created_at DESC";
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ii", $user_id, $user_id);
 $stmt->execute();
-$result = $stmt->get_result(); 
+$result = $stmt->get_result();
+
+
 
 ?>
 
@@ -204,7 +209,12 @@ $result = $stmt->get_result();
             border-radius: 15px;
         }
 
+
         .chat {
+            width: calc(40% - 85px);
+        }
+
+        .client_profile {
             width: calc(40% - 85px);
         }
 
@@ -366,7 +376,6 @@ $result = $stmt->get_result();
             cursor: pointer;
         }
     </style>
-    <?php $user_id = $_SESSION['unique_id']; ?>
     <main>
 
         <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
@@ -380,27 +389,22 @@ $result = $stmt->get_result();
                         </div>
                     </div>
                     <?php
-                    $rows=[];
+
                     while ($row = $result->fetch_assoc()) {
-                        $rows[] = $row;
-                    } 
-                    
-                    // Now you can access the last row
-$lastRow = end($rows);
-if ($lastRow) {
+
                     ?>
-                    <div class="discussion">
-                        <div class="photo" style="background-image: url(/uploads/<?php echo htmlspecialchars($lastRow['sender_image']); ?>);">
 
+                        <div class="discussion">
+                            <div class="photo" style="background-image: url(/uploads/<?php echo htmlspecialchars($row['sender_image']); ?>);">
+
+                            </div>
+                            <div class="desc-contact">
+                                <p class="name"><?php echo htmlspecialchars($row['sender_name']); ?></p>
+                                <p class="message"><?php echo htmlspecialchars($row['body']); ?></p>
+                            </div>
+                            <div class="timer"><?php echo htmlspecialchars($row['created_at']); ?></div>
                         </div>
-                        <div class="desc-contact">
-                            <p class="name"><?php echo htmlspecialchars($lastRow['sender_name']); ?></p>
-                            <p class="message"><?php echo htmlspecialchars($lastRow['subject']); ?></p>
-                        </div>
-                        <div class="timer"><?php echo htmlspecialchars($lastRow['created_at']); ?></div>
-                    </div>
                     <?php } ?>
-
                 </section>
                 <section class="chat">
                     <div class="header-chat">
@@ -444,6 +448,109 @@ if ($lastRow) {
                         <input type="text" class="write-message" id="messsage" name="message" placeholder="Type your message here"></input>
                         <a class="button"><i class="icon send fa-solid fa-paper-plane clickable"></i></a>
                     </form>
+
+                </section>
+                <section class="client_profile">
+
+                    <div class="container">
+                        <div class="team-single">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-5 xs-margin-30px-bottom">
+                                    <div class="team-single-img">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" width="150">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-8 col-md-7">
+                                    <div class="team-single-text padding-50px-left sm-no-padding-left">
+                                        <h4 class="font-size38 sm-font-size32 xs-font-size30">Buckle Giarza</h1>
+                                            <h6 class="margin-10px-bottom font-size24 md-font-size22 sm-font-size20 font-weight-600">Class Teacher
+                                        </h4>
+                                        <ul>
+                                            <li>Age:</li>
+                                            <li>Location:</li>
+                                            <li>Height:</li>
+                                            <li>Weight:</li>
+                                        </ul>
+                                        
+
+                                    </div>
+                                </div>
+                                
+                                <p>I am interested in ladies between: 18-27 years old</p>
+                                <h4>Profile Basics</h4>
+                                <div class="col-lg-6">
+                                    
+                                        <ul class="list-style9 no-margin">
+                                            <li>
+                                                Body Type:
+                                            </li>
+                                            <li>
+                                                Hair Color:
+                                            </li>
+                                            <li>
+                                                Eyes Color:
+                                            </li>
+                                            <li>
+                                                Ethnicity:
+                                            </li>
+                                            <li>
+                                                Marital Status:
+                                            </li>
+                                            <li>
+                                                Smoking:
+                                            </li>
+                                   
+                                            
+                                          
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-6">
+                                    
+                                        <ul class="list-style9 no-margin">
+                              
+                                            <li>
+                                                Drinking:
+                                            </li>
+                                            <li>
+                                                Religion:
+                                            </li>
+                                            <li>
+                                                Education:
+                                            </li>
+                                            <li>
+                                                Children:
+                                            </li>
+                                            <li>
+                                                Number of children:
+                                            </li>
+                                            
+                                          
+                                        </ul>
+                                    </div>
+
+                                    <h5 class="font-size24 sm-font-size22 xs-font-size20">About me</h5>
+
+                                    <ul>
+                                        <li>
+                                            Employment:
+                                        </li>
+                                        <li>
+                                            Describe Yourself (Hobby's and Interest):
+                                        </li>
+                                        <li>
+                                            Your Ideal Match (About Her):
+                                        </li>
+                                        <li>
+                                            Additional comments: 
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
 
                 </section>
             </div>
@@ -494,7 +601,7 @@ if ($lastRow) {
     <?php require('partials/footer.php') ?>
 <?php else : require base_path('views/session/create.view.php') ?>
 
-<?php endif 
+<?php endif
 
 
 ?>

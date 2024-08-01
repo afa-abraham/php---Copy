@@ -2,7 +2,7 @@
 <?php require base_path('views/partials/sidebar.php') ?>
 <?php require base_path('views/partials/nav.php') ?>
 
-<h1>Women Account List</h1>
+<h1>Non-Verified Account List</h1>
 
 <table>
     <tr>

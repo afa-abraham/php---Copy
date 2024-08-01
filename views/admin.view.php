@@ -2,21 +2,19 @@
 <?php require('partials/sidebar.php') ?>
 <?php require('partials/nav.php') ?>
 
-<?php if ($roleId != 1) {
-    echo "
-        <script>
+<?php if ($roleId != 1): ?>
+    <script>
         Swal.fire({
             icon: 'error',
             title: 'Access Denied',
-            text: 'You have no access to this page.'
+            text: <?= json_encode($roleId == 3 ? "Please verify your account first" : "You have no access to this page"); ?>
         }).then(function() {
             window.history.back(); // Go back to the previous page
         });
-      </script>";
+    </script>
+    <?php exit; ?>
+<?php endif; ?>
 
-
-    exit;
-} ?>
 <main>
 
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">

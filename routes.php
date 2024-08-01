@@ -13,6 +13,7 @@ $router->patch('/mail/edit', 'mails/edit_draft.php');
 $router->get('/mails/reply', 'mails/view_message.php');
 
 $router->get('/womens', 'womens/account.php');
+$router->get('/womens/nonverified', 'womens/non-verified.php');
 $router->get('/womens/create', 'womens/create.php');
 $router->post('/womens/store', 'womens/store.php');
 

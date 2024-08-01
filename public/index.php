@@ -3,12 +3,15 @@
 use Core\Session;
 use Core\ValidationException;
 
+
 session_start();
+
 
 const BASE_PATH = __DIR__.'/../';
 
 require BASE_PATH.'Core/functions.php';
 
+// Autoload classes
 spl_autoload_register(function ($class) {
     // Core\Database
     $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
@@ -17,6 +20,7 @@ spl_autoload_register(function ($class) {
 });
 
 require base_path('bootstrap.php');
+
 
 $router = new \Core\Router();
 $routes = require base_path('routes.php');
@@ -30,8 +34,12 @@ try {
     Session::flash('errors', $exception->errors);
     Session::flash('old', $exception->old);
 
+    // Redirect to the previous URL
     return redirect($router->previousUrl());
 }
 
+// Clear flashed session data
 Session::unflash();
+
+
 

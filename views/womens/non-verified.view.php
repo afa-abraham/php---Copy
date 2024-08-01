@@ -11,18 +11,18 @@
         <th>Email</th>
     </tr>
     <?php
-    if ($results->num_rows > 0) {
-        // Output data for each row
-        while ($row = $results->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $row["id"] . "</td>";
-            echo "<td>" . $row["full_name"] . "</td>";
-            echo "<td>" . $row["email"] . "</td>";
-            echo "</tr>";
-        }
-    } else {
-        echo "<tr><td colspan='3'>No users found</td></tr>";
+if ($results->num_rows > 0) {
+    // Output data for each row
+    while ($row = $results->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td><a href='profile.php?id=" . $row["id"] . "'>" . $row["id"] . "</a></td>";
+        echo "<td><a href='profile.php?id=" . $row["id"] . "'>" . $row["full_name"] . "</a></td>";
+        echo "<td><a href='profile.php?id=" . $row["id"] . "'>" . $row["email"] . "</a></td>";
+        echo "</tr>";
     }
+} else {
+    echo "<tr><td colspan='3'>No users found</td></tr>";
+}
     ?>
 </table>
 

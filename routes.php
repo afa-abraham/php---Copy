@@ -14,6 +14,7 @@ $router->get('/mails/reply', 'mails/view_message.php');
 
 $router->get('/womens', 'womens/account.php');
 $router->get('/womens/nonverified', 'womens/non-verified.php');
+$router->get('/women/nonverified', 'womens/non-verified.edit.php');
 $router->get('/womens/create', 'womens/create.php');
 $router->post('/womens/store', 'womens/store.php');
 

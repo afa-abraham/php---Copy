@@ -4,7 +4,7 @@ require base_path('db/config.php');
 $results = $conn->query('SELECT id, full_name, email from users where role_id = 3');
 
 
-view('womens/non-verified.view.php',[
+view('womens/non-verified/index.view.php',[
     'results' => $results
 ]);
 

@@ -15,9 +15,9 @@ if ($results->num_rows > 0) {
     // Output data for each row
     while ($row = $results->fetch_assoc()) {
         echo "<tr>";
-        echo "<td><a href='profile.php?id=" . $row["id"] . "'>" . $row["id"] . "</a></td>";
-        echo "<td><a href='profile.php?id=" . $row["id"] . "'>" . $row["full_name"] . "</a></td>";
-        echo "<td><a href='profile.php?id=" . $row["id"] . "'>" . $row["email"] . "</a></td>";
+        echo "<td><a href='nonverified/women?id=" . $row["id"] . "'>" . $row["id"] . "</a></td>";
+        echo "<td><a href='nonverified/women?id=" . $row["id"] . "'>" . $row["full_name"] . "</a></td>";
+        echo "<td><a href='nonverified/women?id=" . $row["id"] . "'>" . $row["email"] . "</a></td>";
         echo "</tr>";
     }
 } else {

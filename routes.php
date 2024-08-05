@@ -13,10 +13,13 @@ $router->patch('/mail/edit', 'mails/edit_draft.php');
 $router->get('/mails/reply', 'mails/view_message.php');
 
 $router->get('/womens', 'womens/account.php');
-$router->get('/womens/nonverified', 'womens/non-verified.php');
-$router->get('/women/nonverified', 'womens/non-verified.edit.php');
+$router->get('/womens/nonverified', 'womens/non-verified/index.php');
+$router->get('/womens/nonverified/women', 'womens/non-verified/show.php');
+$router->get('/womens/nonverified/update', 'womens/non-verified/edit.php');
+$router->patch('/womens/nonverified/store', 'womens/non-verified/store.php');
 $router->get('/womens/create', 'womens/create.php');
 $router->post('/womens/store', 'womens/store.php');
+$router->patch('/womens/update', 'womens/update.php');
 
 $router->get('/clients', 'clients/index.php');
 $router->get('/clients/create', 'clients/create.php');

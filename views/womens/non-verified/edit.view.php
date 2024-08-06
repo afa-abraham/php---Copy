@@ -1,9 +1,9 @@
 <?php require base_path('views/partials/head.php') ?>
 <?php require base_path('views/partials/sidebar.php') ?>
 <?php require base_path('views/partials/nav.php') ?>
-
+<a href="/womens/nonverified"><button class="btn btn-lg btn-secondary mt-3" ><< &nbsp; Cancel </button></a>
 <div class="new-account-form">
-    <form action="/non-verified/store" method="POST" class="my-4 p-4 shadow rounded bg-white inline-form" enctype="multipart/form-data">
+    <form action="/womens/nonverified/store" method="POST" class="my-4 p-4 shadow rounded bg-white inline-form" enctype="multipart/form-data">
         <input type="hidden" name="_method" value="PATCH">
         <input type="hidden" name="id" value="<?= $women['id'] ?>">
         <fieldset class="mx-lg-5 my-lg-3 inline-form">
@@ -103,11 +103,12 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col"> -->
-                    <button class="verify btn btn-lg btn-primary w-100 mt-3" type="submit" name="">Proceed &nbsp; >></button>
-                <!-- </div>
-            </div> -->
+                    <div class="d-flex justify-content-center">
+                   
+                        <button class="verify btn btn-lg btn-primary mt-3" type="submit" name="">Proceed &nbsp; >></button>
+                    </div>
+                    
+                
         </fieldset>
     </form>
 </div>

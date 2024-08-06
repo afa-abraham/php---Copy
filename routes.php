@@ -21,6 +21,13 @@ $router->get('/womens/create', 'womens/create.php');
 $router->post('/womens/store', 'womens/store.php');
 $router->patch('/womens/update', 'womens/update.php');
 
+$router->get('/admin/unread', 'admin-inbox/unread.php');
+$router->get('/admin/inbox', 'admin-inbox/inbox.php');
+$router->get('/admin/read', 'admin-inbox/read.php');
+$router->get('/admin/unanswered', 'admin-inbox/unanswered.php');
+
+
+
 $router->get('/clients', 'clients/index.php');
 $router->get('/clients/create', 'clients/create.php');
 $router->post('/clients/store', 'clients/store.php');

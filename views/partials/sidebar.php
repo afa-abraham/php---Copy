@@ -66,13 +66,13 @@ $users = $db->query('select * from users')->get(); ?>
         </a>
         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">Unread Messages</a>
+                <a href="/admin/unread" class="sidebar-link">Unread Messages</a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">Read Messages</a>
+                <a href="/admin/read" class="sidebar-link">Read Messages</a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">Unanswered Messages</a>
+                <a href="/admin/unanswered" class="sidebar-link">Unanswered Messages</a>
             </li>
             
             <li class="sidebar-item">

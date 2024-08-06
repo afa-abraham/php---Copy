@@ -41,7 +41,7 @@
                                     <td><?= htmlspecialchars($user['age']) ?></td>
                                     <td><?= htmlspecialchars($user['fb_link']) ?></td>
                                     <td><?= htmlspecialchars(($user['role_id']) === 1 ? "Moderator" : "User") ?></td>
-                                    <td><?= htmlspecialchars($user['mobile']) ?></td>
+                                    <td><?= htmlspecialchars($user['mobile_number']) ?></td>
                                 </tr>
                             <?php endforeach; ?>
 

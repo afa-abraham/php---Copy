@@ -15,14 +15,15 @@
             <li>Facebook Link<?= $women['fb_link'] ?></li>
         </ul>
          
-        
+        <div class="d-flex">
         <a type="button" class="btn btn-primary" href="/womens/nonverified/update?id=<?= $women['id'] ?>">Edit</a>
         
         <form class="mt-6" method="POST" action="/womens/update">
             <input type="hidden" name="_method" value="PATCH">
             <input type="hidden" name="id" value="<?= $women['id'] ?>">
-            <button class="text-sm text-red-500">Verify</button>
+            <button class="btn btn-success">Verify</button>
         </form>
+        </div>
         
 
 

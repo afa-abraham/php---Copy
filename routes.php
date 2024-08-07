@@ -6,7 +6,7 @@ $router->get('/verified-user', 'verified-user.php');
 
 $router->get('/mails/inbox', 'mails/inbox.php');
 $router->get('/mails/create', 'mails/send_mail.php');
-$router->post('/mails/store', 'mails/send_mail.php');
+$router->post('/mails/store', 'mails/send.php');
 $router->get('/mails/drafts', 'mails/drafts.php');
 $router->get('/mails/sent', 'mails/sent.php');
 $router->patch('/mail/edit', 'mails/edit_draft.php');
@@ -25,10 +25,12 @@ $router->get('/admin/unread', 'admin-inbox/unread.php');
 $router->get('/admin/inbox', 'admin-inbox/inbox.php');
 $router->get('/admin/read', 'admin-inbox/read.php');
 $router->get('/admin/unanswered', 'admin-inbox/unanswered.php');
+$router->get('/admin/answered', 'admin-inbox/answered.php');
 
 
 
 $router->get('/clients', 'clients/index.php');
+$router->get('/client', 'clients/show.php');
 $router->get('/clients/create', 'clients/create.php');
 $router->post('/clients/store', 'clients/store.php');
 

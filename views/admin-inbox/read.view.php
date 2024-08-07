@@ -3,7 +3,8 @@ require base_path('views/partials/head.php') ;
 require base_path('views/partials/sidebar.php'); 
 require base_path('views/partials/nav.php') ; ?>
 
-<div class="container mt-5">
+<div class="container mt-3">
+    <h3>Read Messages</h3>
     <table class="table table-striped table-bordered">
         <thead>
             <tr>

@@ -3,7 +3,8 @@ require base_path('views/partials/head.php') ;
 require base_path('views/partials/sidebar.php'); 
 require base_path('views/partials/nav.php') ; ?>
 
-<div class="container mt-5">
+<div class="container mt-3">
+    <h3>Unread Messages</h3>
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -21,7 +22,7 @@ if ($result->num_rows > 0) {
         echo '<tr>';
         echo "<td><a href='/admin/inbox?id=" . $row["id"]. "'>"  . htmlspecialchars($row['sender_name']) . "</a></td>";
         echo "<td><a href='/admin/inbox?id=" . $row["id"]. "'>" . htmlspecialchars($row['body']) . "</a></td>";
-        echo "<td><a href='/admin/inbox?id=" . $row["id"]. "'>" . htmlspecialchars($row['receiver_id']) . "</a></td>";
+        echo "<td><a href='/admin/inbox?id=" . $row["id"]. "'>" . htmlspecialchars($row['receiver_name']) . "</a></td>";
         echo '</tr>';
     }
 } else {

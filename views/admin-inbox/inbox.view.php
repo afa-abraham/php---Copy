@@ -2,7 +2,7 @@
 <?php require base_path('views/partials/sidebar.php') ?>
 <?php require base_path('views/partials/nav.php') ?>
 
-<div class="card mb-3 w-75">
+<div class="card mb-3 w-100">
     <div class="card-body">
         <div class="d-flex align-items-center">
             <div class="ms-3">
@@ -27,12 +27,11 @@
         </div>
     </div>
 </div>
-<div class="card mb-3 w-75">
+<div class="card mb-3 w-100">
     <div class="card-body">
         <h5 class="card-title">Reply</h5>
-        <form method="POST" action="send_mail.php" enctype="multipart/form-data">
+        <form method="POST" action="" enctype="multipart/form-data">
             <input type="hidden" name="receiver_email" value="<?php echo htmlspecialchars($last_sender_email); ?>">
-            <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>">
             <input type="hidden" class="form-control" id="subject" name="subject" value="<?php echo htmlspecialchars($last_subject); ?>" required>
 
             <!-- @ User Suggestions Dropdown -->

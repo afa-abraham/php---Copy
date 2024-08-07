@@ -2,9 +2,9 @@
 <?php require base_path('views/partials/sidebar.php') ?>
 <?php require base_path('views/partials/nav.php') ?>
 
-<h1>Non-Verified Account List</h1>
-
-<table>
+<h3 class="mt-3 ms-3">Non-Verified Account List</h3>
+<div class="container mt-3">
+<table class="table table-striped table-bordered mx-3">
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -25,6 +25,7 @@ if ($results->num_rows > 0) {
 }
     ?>
 </table>
+</div>
 
 <?php $results->close(); ?>
 

@@ -24,11 +24,28 @@
             <button class="btn btn-success">Verify</button>
         </form>
         </div>
-        
-
-
 
 </main>
+
+<script>
+    function verify() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, verify it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('verifyForm').submit();
+            }
+        });
+    }
+</script>
+
+
 
  
 

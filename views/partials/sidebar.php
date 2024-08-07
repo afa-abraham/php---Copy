@@ -30,38 +30,38 @@ $users = $db->query('select * from users')->get(); ?>
 <ul class="sidebar-nav">
     <li class="sidebar-item">
         <a href="#" class="sidebar-link">
-            <i class="lni lni-user"></i>
+            <i class="fa-solid fa-users-viewfinder"></i>
             <span>View Women</span>
         </a>
     </li>
     <li class="sidebar-item">
         <a href="/womens" class="sidebar-link">
-            <i class="lni lni-user"></i>
+            <i class="fa-solid fa-users"></i>
             <span>Women Accounts List</span>
         </a>
     </li>
     <li class="sidebar-item">
         <a href="/womens/create" class="sidebar-link">
-            <i class="lni lni-agenda"></i>
+            <i class="fa-solid fa-user-plus"></i>
             <span>Add Woman Account</span>
         </a>
     </li>
     <li class="sidebar-item">
         <a href="/clients" class="sidebar-link">
-            <i class="lni lni-agenda"></i>
+            <i class="fa-solid fa-user-tie"></i>
             <span>Add Client Details</span>
         </a>
     </li>
     <li class="sidebar-item">
         <a href="/womens/nonverified" class="sidebar-link">
-            <i class="lni lni-user"></i>
+            <i class="fa-solid fa-user-clock"></i>
             <span>Non-verified Accounts List</span>
         </a>
     </li>
     <li class="sidebar-item">
         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
             data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-            <i class="lni lni-protection"></i>
+            <i class="fa-solid fa-inbox"></i>
             <span>My Inbox</span>
         </a>
         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -76,7 +76,7 @@ $users = $db->query('select * from users')->get(); ?>
             </li>
             
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">Answered Messages</a>
+                <a href="/admin/answered" class="sidebar-link">Answered Messages</a>
             </li>
         </ul>
     </li>

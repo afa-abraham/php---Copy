@@ -66,6 +66,9 @@ $users = $db->query('select * from users')->get(); ?>
         </a>
         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
             <li class="sidebar-item">
+                <a href="/admin/create" class="sidebar-link">Compose Message</a>
+            </li>
+            <li class="sidebar-item">
                 <a href="/admin/unread" class="sidebar-link">Unread Messages</a>
             </li>
             <li class="sidebar-item">

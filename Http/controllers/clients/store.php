@@ -2,8 +2,6 @@
 
 require base_path('db/config.php');
 
-
-
 $sql = "CREATE TABLE IF NOT EXISTS clients (
     id INT(6) UNSIGNED NOT NULL PRIMARY KEY,
     fname VARCHAR(50) NULL,
@@ -63,21 +61,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $idealMatch = $conn->real_escape_string($_POST['idealMatch']);
     $additional_comments = $conn->real_escape_string($_POST['additional_comments']);
 
-    // Function to generate a unique 6-digit random number
-    function generateUniqueId($conn) {
-        do {
-            $rand_id = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT); // Ensure it's 6 digits
-            $sql = "SELECT COUNT(*) AS count FROM clients WHERE id = '$rand_id'";
-            $result = $conn->query($sql);
-            $row = $result->fetch_assoc();
-            $unique = $row['count'] == 0;
-        } while (!$unique);
+    // Generate a unique 6-digit ID
+    $id = mt_rand(100000, 999999);
 
-        return $rand_id;
+    // Check if ID already exists in clients table
+    $idCheckQuery = "SELECT id FROM clients WHERE id = '$id'";
+    $result = $conn->query($idCheckQuery);
+
+    // If ID exists, generate a new one
+    while ($result->num_rows > 0) {
+        $id = mt_rand(100000, 999999);
+        $result = $conn->query($idCheckQuery);
     }
-
-    // Generate a unique 6-digit random ID
-    $id = generateUniqueId($conn);
 
     // Prepare an SQL statement
     $stmt = $conn->prepare("INSERT INTO clients (id, fname, lname, age, location, height, weight, interested, body_type, hair_color, eyes_color, ethnicity, marital_status, smoking, drinking, religion, education, children, no_of_children, employment, description, idealMatch, additional_comments) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -88,20 +83,51 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // Bind parameters
     $stmt->bind_param("ississssssssssssssissss", $id, $fname, $lname, $age, $location, $height, $weight, $interested, $body_type, $hair_color, $eyes_color, $ethnicity, $marital_status, $smoking, $drinking, $religion, $education, $children, $no_of_children, $employment, $description, $idealMatch, $additional_comments);
 
+    $success = false;
     // Execute the statement
     if ($stmt->execute()) {
-        echo "New client added successfully with ID: $id";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
+        // Close the first statement
+        $stmt->close();
+        
+        $roleId = 4;
+        // Prepare and bind the second statement for the users table
+        $stmt = $conn->prepare("INSERT INTO users (id, fname, lname,role_id) VALUES (?, ?, ?, ?)");
+        if ($stmt === false) {
+            die("Prepare failed: " . $conn->error);
+        }
+        $stmt->bind_param("issi", $id, $fname, $lname, $roleId);
 
-    // Close the statement
-    $stmt->close();
+        // Execute the statement
+        if ($stmt->execute()) {
+            $success = true ;
+        } else {
+            echo "Error inserting into users table: " . $stmt->error;
+        }
+
+        // Close the second statement
+        $stmt->close();
+    } else {
+        echo "Error inserting into clients table: " . $stmt->error;
+    }
 }
 
 // Close the connection
 $conn->close();
 
-// Redirect to another page
-header("Location: /clients");
+ // Redirect to another page if successful
+ if ($success) {
+    echo "<script>
+            Swal.fire({
+                title: 'Success!',
+                text: 'New record created successfully',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.history.back();
+                }
+            });
+          </script>";
+}
+
 exit();

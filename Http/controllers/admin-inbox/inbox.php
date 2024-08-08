@@ -1,3 +1,4 @@
+
 <?php
 require base_path('db/config.php');
 
@@ -26,41 +27,60 @@ if ($stmt->execute()) {
     echo "Error: " . $stmt->error;
 }
 
-
-
-// Fetch the record with the given ID and email
-$sql = "SELECT m.id, CONCAT(u.first_name, ' ', u.last_name) AS sender_name, m.body,u.email,m.created_at
-        FROM mails m
-        JOIN users u ON m.sender_id = u.id
-        WHERE m.id = ? ";
+$sql = "SELECT thread_id FROM mails WHERE id =?";
 
 // Prepare the statement
 $stmt = $conn->prepare($sql);
+
 // Check if the statement was prepared successfully
 if (!$stmt) {
     die("Prepare failed: " . $conn->error);
 }
 
-// Bind parameters
-$id = $_GET['id'];
-$stmt->bind_param("i", $id); 
-// Execute the statement
+$message_id = $_GET['id'];
+$stmt->bind_param("i", $message_id); 
 $stmt->execute();
-
-// Get the result
 $result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$thread_id = $row['thread_id'];
 
-// Check if a record was found
-if ($result->num_rows === 0) {
-    die("No record found.");
+// Fetch the record with the given ID and email
+$sql = "SELECT 
+            m.id, 
+            CONCAT(sender.fname, ' ', sender.lname) AS sender_name, 
+            m.body AS message_body, 
+            m.created_at AS sent_at, 
+            CONCAT(receiver.fname, ' ', receiver.lname) AS receiver_name, 
+            receiver.email AS receiver_email
+        FROM 
+            mails m
+        JOIN 
+            users sender ON m.sender_id = sender.id
+        JOIN 
+            users receiver ON m.receiver_id = receiver.id
+        WHERE 
+            m.thread_id = ? 
+        ORDER BY 
+            m.created_at ASC";
+
+$stmt = $conn->prepare($sql);
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
 }
 
-// Fetch the result
-$inbox = $result->fetch_assoc();
+$stmt->bind_param("i", $thread_id); 
+$stmt->execute();
+$result = $stmt->get_result();
 
+$messages = $result->fetch_all(MYSQLI_ASSOC);
+// dd($messages[0]['sender_name']);
+
+if (empty($messages)) {
+    die("No messages found for this thread.");
+}
 
 view('admin-inbox/inbox.view.php',[
-    'inbox' => $inbox
+    'messages' => $messages
 ]);
 
 

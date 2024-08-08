@@ -9,7 +9,7 @@
     <li>Last Name: <?= htmlspecialchars($client['lname']) ?></li>
     <li>Age: <?= htmlspecialchars($client['age']) ?></li>
     <li>Location: <?= htmlspecialchars($client['location']) ?></li>
-    <li>Height: <?= htmlspecialchars($client['height']) ?></li>
+    <li>Height: <?= htmlspecialchars(stripslashes($client['height'])) ?></li>
     <li>Weight: <?= htmlspecialchars($client['weight']) ?></li>
     <li>Interested: <?= htmlspecialchars($client['weight']) ?></li>
     <li>Body Type: <?= htmlspecialchars($client['body_type']) ?></li>
@@ -20,12 +20,12 @@
     <li>Smoking: <?= htmlspecialchars($client['smoking']) ?></li>
     <li>Drinking: <?= htmlspecialchars($client['drinking']) ?></li>
     <li>Religion: <?= htmlspecialchars($client['religion']) ?></li>
-    <li>Education: <?= htmlspecialchars($client['education']) ?></li>
+    <li>Education: <?= htmlspecialchars(stripslashes($client['education'])) ?></li>
     <li>Children: <?= htmlspecialchars($client['children']) ?></li>
     <li>No. of children: <?= htmlspecialchars($client['no_of_children']) ?></li>
     <li>Employment: <?= htmlspecialchars($client['employment']) ?></li>
-    <li>Description: <?= htmlspecialchars($client['description']) ?></li>
-    <li>Ideal Match: <?= htmlspecialchars($client['idealMatch']) ?></li>
+    <li>Description: <?= htmlspecialchars(stripslashes($client['description'])) ?></li>
+    <li>Ideal Match: <?= htmlspecialchars(stripslashes($client['idealMatch'])) ?></li>
     <li>Additional Comments: <?= htmlspecialchars($client['additional_comments']) ?></li>
 
 </ul>

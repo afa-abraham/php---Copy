@@ -37,7 +37,7 @@
                             <?php foreach ($users as $user) : ?>
                                 <tr>
                                     <th scope="row"><?= htmlspecialchars($user['id']) ?></th>
-                                    <td><?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?></td>
+                                    <td><?= htmlspecialchars($user['fname'] . ' ' . $user['lname']) ?></td>
                                     <td><?= htmlspecialchars($user['age']) ?></td>
                                     <td><?= htmlspecialchars($user['fb_link']) ?></td>
                                     <td><?= htmlspecialchars(($user['role_id']) === 1 ? "Moderator" : "User") ?></td>

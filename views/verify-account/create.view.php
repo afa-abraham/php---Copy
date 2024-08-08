@@ -21,16 +21,16 @@
         <fieldset class="mx-lg-5 my-lg-3 inline-form">
             <div class="row">
                 <div class=" col-lg-4 col-sm-6 form-floating mb-3">
-                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" value="<?= $user['last_name'] ?>" autocomplete="off" required>
-                    <label for="last_name" >&nbsp; Last Name</label>
+                    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" value="<?= $user['lname'] ?>" autocomplete="off" required>
+                    <label for="lname" >&nbsp; Last Name</label>
                 </div>
                 <div class=" col-lg-4 col-sm-6 form-floating mb-3">
                     <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Middle Name" value="<?= $user['middle_name'] ?>" autocomplete="off" required>
                     <label for="middle_name" >&nbsp; Middle Name</label>
                 </div>
                 <div class=" col-lg-4 col-sm-6 form-floating mb-3">
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" value="<?= $user['first_name'] ?>" autocomplete="off" required>
-                    <label for="first_name" >&nbsp; First Name</label>
+                    <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" value="<?= $user['fname'] ?>" autocomplete="off" required>
+                    <label for="fname" >&nbsp; First Name</label>
                 </div>
             </div>
             <div class="row">

@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
         echo '<tr>';
         echo "<td><a href='/admin/inbox?id=" . $row["id"]. "'>"  . htmlspecialchars($row['sender_name']) . "</a></td>";
         echo "<td><a href='/admin/inbox?id=" . $row["id"]. "'>" . htmlspecialchars($row['body']) . "</a></td>";
-        echo "<td><a href='/admin/inbox?id=" . $row["id"]. "'>" . htmlspecialchars($row['receiver_id']) . "</a></td>";
+        echo "<td><a href='/admin/inbox?id=" . $row["id"]. "'>" . htmlspecialchars($row['receiver_name']) . "</a></td>";
         echo '</tr>';
     }
 } else {

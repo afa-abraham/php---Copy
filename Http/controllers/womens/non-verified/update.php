@@ -13,8 +13,8 @@ $women = $db->query('select * from notes where id = :id', [
 
 
 $db->query('update users set 
-    first_name = :first_name,
-    last_name =:last_name,
+    fname = :fname,
+    lname =:lname,
     middle_name = :middle_name,
     age = :age,
     birthdate = :birthdate,
@@ -23,8 +23,8 @@ $db->query('update users set
     fb_link = :fb_link,
     where id = :id', [
     'id' => $_POST['id'],
-    'first_name' => $_POST['first_name'],
-    'last_name' => $_POST['last_name'],
+    'fname' => $_POST['fname'],
+    'lname' => $_POST['lname'],
     'middle_name' => $_POST['middle_name'],
     'age' => $_POST['age'],
     'birthdate' => $_POST['birthdate'],

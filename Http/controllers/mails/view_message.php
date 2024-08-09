@@ -43,7 +43,7 @@ $thread_id = $thread['thread_id'];
 $stmt->close();
 
 // Fetch the messages in the thread
-$sql = "SELECT mails.*, sender.username AS sender_name, sender.profile_image AS sender_image, sender.email AS sender_email, receiver.username AS receiver_name, receiver.email AS receiver_email 
+$sql = "SELECT mails.*, CONCAT(sender.fname, ' ', sender.lname) AS sender_name, sender.profile_image AS sender_image, sender.email AS sender_email, CONCAT(receiver.fname,' ',receiver.lname) AS receiver_name, receiver.email AS receiver_email 
         FROM mails 
         JOIN users AS sender ON mails.sender_id = sender.id 
         JOIN users AS receiver ON mails.receiver_id = receiver.id 

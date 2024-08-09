@@ -25,9 +25,9 @@ if ($result === false) {
         while ($row = $result->fetch_assoc()) {
             echo '<tr>';
             echo "<td><a href='/admin/inbox?id=" .$row['id']. "'>" . htmlspecialchars($row['receiver_name']) . "</a></td>";
-            echo "<td><a href='/admin/inbox?id=" .$row['id']. "'>" . htmlspecialchars($row['body']) . "</a></td>";
+            echo "<td><a href='/admin/inbox?id=" .$row['id']. "'>" . htmlspecialchars(strip_tags($row['body'])) . "</a></td>";
             echo "<td><a href='/admin/inbox?id=" .$row['id']. "'>" . htmlspecialchars($row['created_at']) . "</a></td>";
-            echo "<td><a href='/admin/inbox?id=" .$row['id']. "'>" . htmlspecialchars($row['receiver_id']) . "</a></td>";
+            echo "<td><a href='/admin/inbox?id=" .$row['id']. "'>" . htmlspecialchars($row['sender_name']) . "</a></td>";
         }
     } else {
         echo "No messages found.";

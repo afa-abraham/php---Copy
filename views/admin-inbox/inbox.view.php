@@ -24,7 +24,7 @@
     </div>' : 
     '<div class="message text-only">
         <div class="response">
-            <p class="text">' . htmlspecialchars($message['message_body']) . '</p>
+            <p class="text">' . strip_tags(htmlspecialchars($message['message_body'])) . '</p>
         </div>
         <p class="response-time time">' . htmlspecialchars($message['sent_at']) . '</p>
     </div>'; ?>

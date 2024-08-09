@@ -37,6 +37,7 @@ if (!$stmt) {
     die("Prepare failed: " . $conn->error);
 }
 
+
 $message_id = $_GET['id'];
 $stmt->bind_param("i", $message_id); 
 $stmt->execute();
@@ -73,7 +74,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 $messages = $result->fetch_all(MYSQLI_ASSOC);
-// dd($messages[0]['sender_name']);
+
 
 if (empty($messages)) {
     die("No messages found for this thread.");

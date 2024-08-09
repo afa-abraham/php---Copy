@@ -10,7 +10,7 @@
     <table class="table">
         <tr>
             <th>From</th>
-            <th>Subject</th>
+            <th>Message</th>
             <th>Date</th>
             <th>Actions</th>
         </tr>
@@ -21,7 +21,7 @@
                     <?php echo htmlspecialchars($row['sender_name']); ?>
                 </td>
                 <td>
-                    <a class="text-decoration-none view-message" href="/mails/reply?id=<?php echo $row['id']; ?>&type=inbox"><?php echo htmlspecialchars($row['subject']); ?></a>
+                    <a class="text-decoration-none view-message" href="/mails/reply?id=<?php echo $row['id']; ?>"><?php echo htmlspecialchars(strip_tags(($row['body']))); ?></a>
                 </td>
                 <td><?php echo htmlspecialchars($row['created_at']); ?></td>
                 <td>

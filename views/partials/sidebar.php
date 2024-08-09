@@ -102,7 +102,7 @@ $users = $db->query('select * from users')->get(); ?>
         </a>
     </li>
     <li class="sidebar-item">
-        <a href="/mails" class="sidebar-link">
+        <a href="/mails/unread" class="sidebar-link">
             <i class="fa fa-envelope"></i>
             <span>Unread messages</span>
         </a>

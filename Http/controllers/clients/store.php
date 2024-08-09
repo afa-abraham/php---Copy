@@ -130,4 +130,6 @@ $conn->close();
           </script>";
 }
 
-exit();
+redirect('/clients');
+
+

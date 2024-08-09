@@ -27,7 +27,7 @@
     <div class="card mb-3 w-50">
         <div class="card-body">
             <h5 class="card-title">Reply</h5>
-            <form method="POST" action="store">
+            <form method="POST" action="/mails/store">
                 <input type="hidden" name="receiver_email" value="<?php echo htmlspecialchars($last_sender_email); ?>">
                 <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>">
                 <div class="form-group">
@@ -37,8 +37,7 @@
                     <textarea class="form-control" id="body" name="body" rows="5" placeholder="Write message here..." ></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Send</button>
-                <button type="submit" name="save_as_draft" class="btn btn-secondary mt-3">Finish Later</button>
-                <a name="save_as_draft" class="btn btn-secondary mt-3" href="inbox">Back</a>
+                <a name="save_as_draft" class="btn btn-secondary mt-3" href="/mails/inbox">Back</a>
             </form>
         </div>
     </div>

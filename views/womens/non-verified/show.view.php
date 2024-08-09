@@ -5,8 +5,8 @@
 <main>
     <h3><?= $women['full_name']  ?></h3>
         <ul>
-            <li>First Name:<?= $women['first_name'] ?></li>
-            <li>Last Name:<?= $women['last_name'] ?></li>
+            <li>First Name:<?= $women['fname'] ?></li>
+            <li>Last Name:<?= $women['lname'] ?></li>
             <li>Middle Name:<?= $women['middle_name'] ?></li>
             <li>Age:<?= $women['age'] ?></li>
             <li>Birthdate:<?= $women['birthdate'] ?></li>

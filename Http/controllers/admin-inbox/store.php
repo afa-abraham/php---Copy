@@ -28,8 +28,9 @@ function getThreadId($conn, $sender_id, $receiver_id)
     }
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $sender_id = $_SESSION['user_id'];
+    $sender_name = $_POST['sender_name'];
     $receiver_name = $_POST['receiver_name'];
     $body = $_POST['body'];
 
@@ -37,8 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "
         SELECT u.id AS receiver_id
         FROM users u
-        JOIN clients c ON u.id = c.id
-        WHERE CONCAT(c.fname, ' ', c.lname) = ?
+        WHERE CONCAT(u.fname, ' ', u.lname) = ?
         LIMIT 1
     ";
 
@@ -49,9 +49,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->fetch();
     $stmt->close();
 
-    if ($receiver_id === null) {
-        // Receiver not found
-        $message = "Receiver not found.";
+    // Fetch the sender_id based on the sender_name
+    $sql = "
+        SELECT u.id AS sender_id
+        FROM users u
+        JOIN clients c ON u.id = c.id
+        WHERE CONCAT(c.fname, ' ', c.lname) = ?
+        LIMIT 1
+    ";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $sender_name);
+    $stmt->execute();
+    $stmt->bind_result($sender_id);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($receiver_id === null || $sender_id === null) {
+        // Sender or Receiver not found
+        $message = "Sender or Receiver not found.";
         $icon = "error";
     } else {
         // Check if the receiver_id exists in the users table
@@ -69,11 +85,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Get the appropriate thread ID
             $thread_id = getThreadId($conn, $sender_id, $receiver_id);
+            $is_answered = 1;
+            $body = strip_tags($_POST['body']);
 
             // Insert the email into the mails table
-            $query = "INSERT INTO mails (sender_id, receiver_id, body, thread_id) VALUES (?, ?, ?, ?)";
+            $query = "INSERT INTO mails (sender_id, receiver_id, body, thread_id, is_answered) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("iisi", $sender_id, $receiver_id, $body, $thread_id);
+            $stmt->bind_param("iisii", $sender_id, $receiver_id, $body, $thread_id, $is_answered );
 
             if ($stmt->execute()) {
                 $message = "Email sent successfully!";
@@ -98,4 +116,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>";
 }
 
-redirect('/mails/inbox');
+redirect('/admin/unread');
